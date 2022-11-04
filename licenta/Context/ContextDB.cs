@@ -15,6 +15,6 @@ namespace steptrans.Context
         }
 
 
-        public DbSet<EmployeeSaveDao> Employee { get; set; }
+        public DbSet<EmployeeDao> Employees { get; set; }
     }
 }

@@ -1,15 +1,18 @@
+using AutoMapper;
+using Licenta.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
+using steptrans.Context;
+using steptrans.Interfaces.Repositories;
+using steptrans.Interfaces.Services;
+using steptrans.Mappers;
+using steptrans.Repositories;
+using steptrans.Services;
 
 namespace licenta
 {
@@ -25,7 +28,40 @@ namespace licenta
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
+            services.AddSingleton(new MapperConfiguration(cfg =>
+            {
+                cfg.AllowNullCollections = true;
+                cfg.AddProfile(new WebApiAutoMapperProfile());
+                cfg.ForAllMaps((typeMap, map) => { map.AfterMap((src, dest) => AttributeValidator.Validate(dest)); });
+            }).CreateMapper());
+
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+               // c.OperationFilter<SecurityRequirementsOperationFilter>();
+
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "My API",
+                    Description = "Demo Api for showing swagger ",
+                    Version = "v1"
+                });
+            });
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddDbContextPool<ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("ContextConnectionString")));
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +71,11 @@ namespace licenta
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true) // allow any origin
+            .AllowCredentials()); // allow credentials
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -45,6 +85,12 @@ namespace licenta
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSwagger();
+
+            app.UseSwaggerUI(o =>
+            {
+                o.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger HeRo");
             });
         }
     }

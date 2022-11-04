@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using steptrans.DAOModels.Employee;
+using steptrans.DtoModels.Employee;
 using steptrans.Models.Employee;
 
 namespace steptrans.Mappers
@@ -7,7 +9,9 @@ namespace steptrans.Mappers
     {
         public WebApiAutoMapperProfile()
         {
-           // CreateMap<EmployeeSave, EmployeeSaveDao>().ReverseMap();
+           CreateMap<EmployeeSave, EmployeeSaveDto>().ReverseMap();
+
+            CreateMap<EmployeeSave, EmployeeDao>().ReverseMap();
         }
     }
 }

@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace steptrans.DAOModels.Employee
 {
-    public class EmployeeSaveDao
+    public class EmployeeDao
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int EmployeeId { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string FullName { get; set; }
