@@ -21,12 +21,14 @@ namespace steptrans.Controllers
             this.employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
+
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> GetEmployees()
         {
             return Ok(await employeeService.GetEmployees().ConfigureAwait(false));
         }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateEmployee(EmployeeSaveDto employeeSaveDto)
