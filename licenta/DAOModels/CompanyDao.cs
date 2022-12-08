@@ -8,15 +8,12 @@ namespace licenta.DAOModels
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         public string Name { get; set; }
 
         public string Money { get; set; }
 
         public ICollection<EmployeeDao> Employees { get; set; } = new List<EmployeeDao>();
-
-        public ICollection<EmployeeDao> PastEmployees { get; set; } = new List<EmployeeDao>();
-
     }
 }

@@ -27,9 +27,9 @@ namespace licenta.DAOModels
         public int KmNumber { get; set; }
 
         public string CarHistory { get; set; }
-
-        public ICollection<RoutesDao> Routes { get; set; } = new List<RoutesDao>();
        
         public ICollection<RepairsDao> Repairs { get; set; } = new List<RepairsDao>();
+
+        public ICollection<CarsRouteDao> CarsRoutes { get; set; } = new List<CarsRouteDao>();
     }
 }

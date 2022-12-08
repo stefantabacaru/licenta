@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace licenta.Models.Routes
 {
@@ -6,9 +7,9 @@ namespace licenta.Models.Routes
     {
         public int RouteId { get; set; }
 
-        public int RouteEmployeeId { get; set; }
+        public List<int> EmployeeId { get; set; }
 
-        public int RouteCarId { get; set; }
+        public List<int> CarId { get; set; }
 
         public string RouteDetails { get; set; }
 

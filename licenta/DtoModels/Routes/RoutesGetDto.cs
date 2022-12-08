@@ -6,10 +6,6 @@ namespace licenta.DtoModels.Routes
     {
         public int RoutesId { get; set; }
 
-        public int RouteEmployeeId { get; set; }
-
-        public int RouteCarId { get; set; }
-
         public string RouteDetails { get; set; }
 
         public DateTime RoutePeriod { get; set; }

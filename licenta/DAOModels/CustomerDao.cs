@@ -12,8 +12,6 @@ namespace licenta.DAOModels
         [Required]
         public string CustomerName { get; set; }
 
-        public RoutesDao Route { get; set; }
-
         [Required]
         public int CustomerRouteId { get; set; }
 

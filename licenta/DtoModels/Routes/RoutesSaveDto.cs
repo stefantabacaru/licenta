@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace licenta.DtoModels.Routes
@@ -6,10 +7,10 @@ namespace licenta.DtoModels.Routes
     public class RoutesSaveDto
     {
         [Required]
-        public int RouteEmployeeId { get; set; }
+        public List<int> EmployeeId { get; set; }
 
         [Required]
-        public int RouteCarId { get; set; }
+        public List<int> CarId { get; set; }
 
         public string RouteDetails { get; set; } 
 

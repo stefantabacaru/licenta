@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace licenta.DtoModels.Routes
 {
     public class RouteUpdateDto
     {
-        public int RouteEmployeeId { get; set; }
+        public List<int> EmployeeId { get; set; }
 
-        public int RouteCarId { get; set; }
+        public List<int> CarId { get; set; }
 
         public string MoneyCollected { get; set; }
 

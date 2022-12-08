@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace licenta.DAOModels
 {
@@ -19,6 +18,8 @@ namespace licenta.DAOModels
         [Required]
         public DateTime StartDate { get; set; }
 
+        public DateTime EndDate { get; set; }
+
         [Required, MaxLength(15)]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
         public string PhoneNumber { get; set; }
@@ -33,7 +34,7 @@ namespace licenta.DAOModels
         [Required]
         public string Role { get; set; }
 
-        public ICollection<RoutesDao> Routes { get; set; } = new List<RoutesDao>();
+        public ICollection<EmployeeRouteDao> EmployeeRoutes { get; set; } = new List<EmployeeRouteDao>();
 
         public ICollection<RepairsDao> Repairs { get; set; } = new List<RepairsDao>();
 
