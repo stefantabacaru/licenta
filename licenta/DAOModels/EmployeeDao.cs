@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace steptrans.DAOModels.Employee
+namespace licenta.DAOModels
 {
     public class EmployeeDao
     {
@@ -30,5 +32,13 @@ namespace steptrans.DAOModels.Employee
 
         [Required]
         public string Role { get; set; }
+
+        public ICollection<RoutesDao> Routes { get; set; } = new List<RoutesDao>();
+
+        public ICollection<RepairsDao> Repairs { get; set; } = new List<RepairsDao>();
+
+        public CompanyDao Company { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

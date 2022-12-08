@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
+using licenta.DAOModels;
 using Microsoft.EntityFrameworkCore;
-using steptrans.DAOModels.Employee;
 using steptrans.DtoModels.Employee;
 using steptrans.Interfaces.Repositories;
 using steptrans.Models.Employee;

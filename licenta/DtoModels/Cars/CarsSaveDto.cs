@@ -1,19 +1,23 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace licenta.Models.Cars
+namespace licenta.DtoModels.Cars
 {
-    public class CarsGet
+    public class CarsSaveDto
     {
-        public int CarsId { get; set; }
-
+        [Required]
         public DateTime ManufacturingDate { get; set; }
 
+        [Required]
         public string CarType { get; set; }
 
+        [Required]
         public int SeatsNumber { get; set; }
 
+        [Required]
         public string NumberPlate { get; set; }
 
+        [Required]
         public int KmNumber { get; set; }
 
         public string CarHistory { get; set; }

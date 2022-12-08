@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace licenta.DtoModels.Employee
 {
@@ -17,5 +14,7 @@ namespace licenta.DtoModels.Employee
         public string Email { get; set; }
 
         public int WorkingHours { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 }
