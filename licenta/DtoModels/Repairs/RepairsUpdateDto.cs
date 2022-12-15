@@ -1,6 +1,6 @@
 ﻿namespace licenta.DtoModels.Repairs
 {
-    public class RepairsUpdateDto
+    public class RoutesUpdateDto
     {
         public string Problem { get; set; }
 
