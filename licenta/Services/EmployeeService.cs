@@ -1,11 +1,11 @@
-﻿using steptrans.Interfaces.Repositories;
-using steptrans.Interfaces.Services;
-using steptrans.Models.Employee;
+﻿using licenta.Interfaces.Services;
+using licenta.Interfaces.Repositories;
+using licenta.Models.Employee;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace steptrans.Services
+namespace licenta.Services
 {
     public class EmployeeService : IEmployeeService
 

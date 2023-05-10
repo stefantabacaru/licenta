@@ -16,10 +16,7 @@ using licenta.Models.Employee;
 using licenta.Models.EmployeeRoute;
 using licenta.Models.Repairs;
 using licenta.Models.Routes;
-using steptrans.DtoModels.Employee;
-using steptrans.Models.Employee;
-
-namespace steptrans.Mappers
+namespace licenta.Mappers
 {
     public class WebApiAutoMapperProfile : Profile
     {

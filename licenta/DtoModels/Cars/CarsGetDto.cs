@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace licenta.DtoModels.Cars
 {
     public class CarsGetDto
-    {
+    {       
             public int CarId { get; set; }
 
             public DateTime ManufacturingDate { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace steptrans.Mappers
+﻿namespace licenta.Mappers
 {
     internal class CompanyDto
     {

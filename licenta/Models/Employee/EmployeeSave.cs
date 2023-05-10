@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace steptrans.Models.Employee
+namespace licenta.Models.Employee
 {
     public class EmployeeSave
     {

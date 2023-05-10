@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using AutoMapper.Execution;
 using licenta.DAOModels;
-using Microsoft.EntityFrameworkCore;
-using steptrans.DtoModels.Employee;
-using steptrans.Interfaces.Repositories;
-using steptrans.Models.Employee;
+using licenta.Interfaces.Repositories;
+using licenta.Models.Employee;
 using System;
 using System.Threading.Tasks;
 
-namespace steptrans.Repositories
+namespace licenta.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {

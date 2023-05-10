@@ -1,4 +1,5 @@
 using AutoMapper;
+using licenta.Interfaces.Services;
 using Licenta.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,12 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using steptrans.Context;
-using steptrans.Interfaces.Repositories;
-using steptrans.Interfaces.Services;
-using steptrans.Mappers;
-using steptrans.Repositories;
-using steptrans.Services;
+using licenta.Context;
+using licenta.Interfaces.Repositories;
+using licenta.Mappers;
+using licenta.Repositories;
+using licenta.Services;
 
 namespace licenta
 {

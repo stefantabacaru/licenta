@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace steptrans.Controllers
+namespace licenta.Controllers
 {
     [ApiController]
     [Route("[controller]")]

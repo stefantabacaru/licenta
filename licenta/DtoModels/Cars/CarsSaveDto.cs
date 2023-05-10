@@ -21,5 +21,6 @@ namespace licenta.DtoModels.Cars
         public int KmNumber { get; set; }
 
         public string CarHistory { get; set; }
+
     }
 }

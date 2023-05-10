@@ -1,4 +1,5 @@
 ﻿using licenta.Models.CarsRoute;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace licenta.Interfaces.Services
@@ -8,5 +9,9 @@ namespace licenta.Interfaces.Services
         public Task<int> CreateCarsRoute(CarsRoute carsRoute);
 
         public Task<CarsRoute> GetCarsRoute();
+
+        public Task<List<int>> GetRoutesByCarId(int carId);
+
+       public Task<List<int>> GetCarsByRouteId(int reouteId);
     }
 }

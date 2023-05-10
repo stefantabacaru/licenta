@@ -1,7 +1,7 @@
 ﻿using licenta.DAOModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace steptrans.Context
+namespace licenta.Context
 {
     public class ContextDB : DbContext
     {

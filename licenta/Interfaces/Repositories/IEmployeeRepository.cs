@@ -1,7 +1,7 @@
-﻿using steptrans.Models.Employee;
+﻿using licenta.Models.Employee;
 using System.Threading.Tasks;
 
-namespace steptrans.Interfaces.Repositories
+namespace licenta.Interfaces.Repositories
 {
     public interface IEmployeeRepository
     {

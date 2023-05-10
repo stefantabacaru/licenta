@@ -1,12 +1,19 @@
-﻿using steptrans.Models.Employee;
+﻿using licenta.Models.Employee;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace steptrans.Interfaces.Services
+namespace licenta.Interfaces.Services
 {
     public interface IEmployeeService
     {
-        public Task<int> CreateEmployee(EmployeeSave employeeSave);
+        public Task CreateEmployee(EmployeeSave employeeSave);
 
-        public Task<EmployeeSave> GetEmployees();
+        public Task<List<EmployeeGet>> GetEmployees();
+
+        public Task<EmployeeGet> GetEmployeeById(int id);
+
+        public Task UpdateEmployee(EmployeeUpdate employeeUpdate);
+
+        public Task DeleteEmployeeById(int id);
     }
 }

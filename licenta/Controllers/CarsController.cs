@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using licenta.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace licenta.Controllers
 {
@@ -6,6 +7,6 @@ namespace licenta.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private readonly ICarsService
+        private readonly ICarsService carsService;
     }
 }

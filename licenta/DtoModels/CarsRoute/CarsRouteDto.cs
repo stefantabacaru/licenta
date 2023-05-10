@@ -2,7 +2,6 @@
 {
     public class CarsRouteDto
     {
-
         public int Id { get; set; }
 
         public int CarsId { get; set; }

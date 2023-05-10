@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using licenta.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using steptrans.DtoModels.Employee;
-using steptrans.Interfaces.Services;
-using steptrans.Models.Employee;
+using licenta.DtoModels.Employee;
+using licenta.Models.Employee;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace steptrans.Controllers
+namespace licenta.Controllers
 {
     [ApiController]
     [Route("Employee")]

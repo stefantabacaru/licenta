@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace steptrans.DtoModels.Employee
+namespace licenta.DtoModels.Employee
 {
     public class EmployeeSaveDto
     {
