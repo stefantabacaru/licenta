@@ -5,7 +5,7 @@ namespace licenta.Interfaces.Services
 {
     public interface ICustomerService
     {
-        public Task CreateCustomer(CustomerSave customerSave);
+        public Task<int> CreateCustomer(CustomerSave customerSave);
 
         public Task<CustomerGet> GetCustomer();
     }

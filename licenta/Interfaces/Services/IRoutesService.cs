@@ -12,7 +12,7 @@ namespace licenta.Interfaces.Services
 
         public Task<RoutesGet> GetRouteById(int id);
 
-        public Task UpdateRoute(RoutesUpdate routesUpdate);
+        public Task UpdateRoute(RoutesUpdate routesUpdate, int id);
 
         public Task DeleteRouteById(int id);
     }

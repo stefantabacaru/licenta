@@ -6,13 +6,13 @@ namespace licenta.Interfaces.Services
 {
     public interface ICarsService
     {
-        public Task CreateCars(CarsSave carsSave);
+        public Task<int> CreateCars(CarsSave carsSave);
 
         public Task<List<CarsGet>> GetCars();
 
         public Task<CarsGet> GetCarById(int id);
 
-        public Task UpdateCars(CarsUpdate carsSave);
+        public Task UpdateCars(CarsUpdate carsSave, int id);
 
         public Task DeleteCarById(int id);
     }

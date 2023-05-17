@@ -13,11 +13,14 @@ namespace licenta.Controllers
     [Route("Employee")]
     public class EmployeeController : ControllerBase
     {
+        private readonly IEmployeeRouteService employeeRouteService;
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeController(IEmployeeRouteService employeeRouteService, IEmployeeService employeeService, IMapper mapper)
         {
+            this.employeeRouteService = employeeRouteService ?? throw new ArgumentNullException(nameof(employeeRouteService));
+
             this.employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -27,6 +30,26 @@ namespace licenta.Controllers
         public async Task<IActionResult> GetEmployees()
         {
             return Ok(await employeeService.GetEmployees().ConfigureAwait(false));
+        }
+
+        [HttpGet]
+        [Route("getByRouteId/{id}")]
+        public async Task<IActionResult> GetemployeeByRouteId(int routeId)
+        {
+            return Ok(await employeeRouteService.GetEmployeesByRouteId(routeId).ConfigureAwait(false));
+        }
+
+        [HttpGet]
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetEmployeeById(int id)
+        {
+            var employee = await employeesService.GetEmployeeById(id).ConfigureAwait(false);
+            if (employee != null)
+            {
+                return Ok(employee);
+            }
+
+            return NotFound($"cant find employee with the id: {id}");
         }
 
         [HttpPost]
@@ -44,6 +67,23 @@ namespace licenta.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteEmployeeById(int id)
+        {
+            await employeeService.DeleteEmployeeById(id).ConfigureAwait(false);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("edit/{id}")]
+        public async Task<IActionResult> EditEmployee(int id, EmployeeUpdateDto employeeDto)
+        {
+            var employee = mapper.Map<EmployeeUpdate>(employeeDto);
+            await employeeService.UpdateEmployee(employee, id).ConfigureAwait(false);
+            return Ok();
         }
     }
 }
