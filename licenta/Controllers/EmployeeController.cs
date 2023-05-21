@@ -43,7 +43,7 @@ namespace licenta.Controllers
         [Route("get/{id}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
-            var employee = await employeesService.GetEmployeeById(id).ConfigureAwait(false);
+            var employee = await employeeService.GetEmployeeById(id).ConfigureAwait(false);
             if (employee != null)
             {
                 return Ok(employee);

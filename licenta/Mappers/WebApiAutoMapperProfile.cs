@@ -54,14 +54,14 @@ namespace licenta.Mappers
             CreateMap<RepairsGet, RepairsDao>().ReverseMap();
             CreateMap<RepairsSave, RepairsSaveDto>().ReverseMap();
             CreateMap<RepairsSave, RepairsDao>().ReverseMap();
-            CreateMap<RepairsUpdate, RoutesUpdateDto>().ReverseMap();
+            CreateMap<RepairsUpdate, RepairsUpdateDto>().ReverseMap();
             CreateMap<RepairsUpdate, RepairsDao>().ReverseMap();
 
             CreateMap<RoutesGet, RoutesGetDto>().ReverseMap();
             CreateMap<RoutesGet, RoutesDao>().ReverseMap();
             CreateMap<RoutesSave, RoutesSaveDto>().ReverseMap();
             CreateMap<RoutesSave, RoutesDao>().ReverseMap();
-            CreateMap<RoutesUpdate, RoutesUpdateDto>().ReverseMap();
+            CreateMap<RoutesUpdate, RepairsUpdateDto>().ReverseMap();
             CreateMap<RoutesUpdate, RoutesDao>().ReverseMap();
         }
     }

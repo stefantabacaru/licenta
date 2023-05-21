@@ -18,7 +18,7 @@ namespace licenta.DAOModels
         [Required]
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Required, MaxLength(15)]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]

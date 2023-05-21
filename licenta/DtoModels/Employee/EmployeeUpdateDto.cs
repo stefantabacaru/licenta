@@ -13,7 +13,7 @@ namespace licenta.DtoModels.Employee
         [EmailAddress]
         public string Email { get; set; }
 
-        public int WorkingHours { get; set; }
+        public int WorkedDaysPerMonth { get; set; }
 
         public DateTime? EndDate { get; set; }
     }

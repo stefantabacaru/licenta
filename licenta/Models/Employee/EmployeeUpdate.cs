@@ -10,6 +10,6 @@ namespace licenta.Models.Employee
 
         public string Email { get; set; }
 
-        public int WorkingHours { get; set; }
+        public int WorkedDaysPerMonth { get; set; }
     }
 }
