@@ -1,6 +1,9 @@
-﻿using licenta.Interfaces.Services;
+﻿using AutoMapper;
+using licenta.DAOModels;
+using licenta.Interfaces.Services;
 using licenta.Models.Cars;
 using licenta.Models.CarsRoute;
+using licenta.Models.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +13,44 @@ namespace licenta.Services
 {
     public class CarsRouteService : ICarsRouteService
     {
-        public Task<int> CreateCarsRoute(CarsRoute carsRoute)
+        private Context.ContextDB _context;
+        private readonly IMapper mapper;
+
+        public CarsRouteService(Context.ContextDB context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<List<CarsGet>> GetCarsByRouteId(int reouteId)
+        public async Task<int> CreateCarsRoute(CarsRoute carsRoute)
         {
-            throw new NotImplementedException();
+            var carsRouteDao = mapper.Map<CarsRouteDao>(carsRoute);
+            _context.CarsRoutes.Add(carsRouteDao);
+            _context.SaveChanges();
+            return carsRouteDao.Id;
         }
 
-        public Task<CarsRoute> GetCarsRoute()
+        public async Task<List<CarsGet>> GetCarsByRouteId(int routeId)
         {
-            throw new NotImplementedException();
+            var Cars = from c in _context.CarsRoutes
+                       where (c.RouteId == routeId)
+                       select c.Car;
+
+            return mapper.Map<List<CarsGet>>(Cars.ToList());
         }
 
-        public Task<List<int>> GetRoutesByCarId(int carId)
+        public async Task<List<CarsRoute>> GetCarsRoute()
         {
-            throw new NotImplementedException();
+            return mapper.Map<List<CarsRoute>>(_context.CarsRoutes.ToList());
+        }
+
+        public async  Task<List<RoutesGet>> GetRoutesByCarId(int carId)
+        {
+            var Routes = from c in _context.CarsRoutes
+                       where (c.RouteId == carId)
+                       select c.Route;
+
+            return mapper.Map<List<RoutesGet>>(Routes.ToList());
         }
     }
 }

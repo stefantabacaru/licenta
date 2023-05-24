@@ -1,4 +1,6 @@
-﻿using licenta.Models.EmployeeRoute;
+﻿using licenta.Models.Employee;
+using licenta.Models.EmployeeRoute;
+using licenta.Models.Routes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,10 +10,10 @@ namespace licenta.Interfaces.Services
     {
         public Task<int> CreateEmployeeRoute(EmployeeRoute employeeRoute);
 
-        public Task<EmployeeRoute> GetEmployeeRoute();
+        public Task<List<EmployeeRoute>> GetEmployeeRoute();
 
-       public Task<List<int>> GetRoutesEmployeeId(int employeeId);
+       public Task<List<RoutesGet>> GetRoutesEmployeeId(int employeeId);
 
-       public Task<List<int>> GetEmployeesByRouteId(int reouteId);
+       public Task<List<EmployeeGet>> GetEmployeesByRouteId(int routeId);
     }
 }

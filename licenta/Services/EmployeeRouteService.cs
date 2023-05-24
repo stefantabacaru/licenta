@@ -1,5 +1,9 @@
-﻿using licenta.Interfaces.Services;
+﻿using AutoMapper;
+using licenta.DAOModels;
+using licenta.Interfaces.Services;
+using licenta.Models.Employee;
 using licenta.Models.EmployeeRoute;
+using licenta.Models.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +13,46 @@ namespace licenta.Services
 {
     public class EmployeeRouteService : IEmployeeRouteService
     {
-        public Task<int> CreateEmployeeRoute(EmployeeRoute employeeRoute)
+
+        private Context.ContextDB _context;
+        private readonly IMapper mapper;
+
+        public EmployeeRouteService(Context.ContextDB context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<EmployeeRoute> GetEmployeeRoute()
+        public async Task<int> CreateEmployeeRoute(EmployeeRoute employeeRoute)
         {
-            throw new NotImplementedException();
+            var carsRouteDao = mapper.Map<EmployeeRouteDao>(employeeRoute);
+            _context.EmployeeRoutes.Add(carsRouteDao);
+            _context.SaveChanges();
+            return carsRouteDao.Id;
         }
 
-        public Task<List<int>> GetEmployeesByRouteId(int reouteId)
+        public async Task<List<EmployeeRoute>> GetEmployeeRoute()
         {
-            throw new NotImplementedException();
+            return mapper.Map<List<EmployeeRoute>>(_context.EmployeeRoutes.ToList());
         }
 
-        public Task<List<int>> GetRoutesEmployeeId(int employeeId)
+        public async Task<List<EmployeeGet>> GetEmployeesByRouteId(int routeId)
         {
-            throw new NotImplementedException();
+   
+            var Employees = from c in _context.EmployeeRoutes
+                            where (c.RouteId == routeId)
+                            select c.Employee;
+
+            return mapper.Map<List<EmployeeGet>>(Employees.ToList());
+        }
+
+        public async  Task<List<RoutesGet>> GetRoutesEmployeeId(int employeeId)
+        {
+            var Routes = from c in _context.EmployeeRoutes
+                         where (c.RouteId == employeeId)
+                         select c.Route;
+
+            return mapper.Map<List<RoutesGet>>(Routes.ToList());
         }
     }
 }

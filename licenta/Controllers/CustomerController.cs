@@ -24,7 +24,7 @@ namespace licenta.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<IActionResult> GetCustomer()
+        public async Task<IActionResult> GetCustomers()
         {
             return Ok(await customerService.GetCustomer().ConfigureAwait(false));
         }
@@ -39,5 +39,20 @@ namespace licenta.Controllers
             return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + customerId,
                 customer);
         }
+
+        [HttpGet]
+        [Route("getByRouteId/{id}")]
+        public async Task<IActionResult> GettCustomersByRouteId(int routeId)
+        {
+            return Ok(await customerService.GetCustomerByRouteId(routeId).ConfigureAwait(false));
+        }
+
+        [HttpGet]
+        [Route("getById/{id}")]
+        public async Task<IActionResult> GettCustomersById(int Id)
+        {
+            return Ok(await customerService.GetCustomerById(Id).ConfigureAwait(false));
+        }
+
     }
 }

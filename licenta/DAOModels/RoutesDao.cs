@@ -32,6 +32,8 @@ namespace licenta.DAOModels
 
         public int PassengersNumber { get; set; }
 
+        public ICollection<CustomerDao> Passengers { get; set; } = new List<CustomerDao>();
+
         public ICollection<EmployeeRouteDao> EmployeeRoutes { get; set; } = new List<EmployeeRouteDao>();
 
         public ICollection<CarsRouteDao> CarsRoutes { get; set; } = new List<CarsRouteDao>();

@@ -27,6 +27,7 @@ namespace licenta.Services
             ValidateStartDate(employeeSave.StartDate);
 
             var employeeSaveDao = mapper.Map<EmployeeDao>(employeeSave);
+            employeeSaveDao.CompanyId = 1;
             _context.Employees.Add(employeeSaveDao);
             _context.SaveChanges();
             return employeeSaveDao.EmployeeId;

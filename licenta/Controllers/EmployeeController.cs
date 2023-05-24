@@ -58,6 +58,7 @@ namespace licenta.Controllers
         {
             try
             {
+
                 var employeeSave = mapper.Map<EmployeeSave>(employeeSaveDto);
                 var employeeId = await employeeService.CreateEmployee(employeeSave).ConfigureAwait(false);
 

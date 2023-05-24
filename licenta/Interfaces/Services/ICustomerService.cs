@@ -1,4 +1,5 @@
 ﻿using licenta.Models.Customer;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace licenta.Interfaces.Services
@@ -7,6 +8,9 @@ namespace licenta.Interfaces.Services
     {
         public Task<int> CreateCustomer(CustomerSave customerSave);
 
-        public Task<CustomerGet> GetCustomer();
+        public Task<List<CustomerGet>> GetCustomer();
+        public Task<CustomerGet> GetCustomerById(int id);
+
+        public Task<List<CustomerGet>> GetCustomerByRouteId(int id);
     }
 }

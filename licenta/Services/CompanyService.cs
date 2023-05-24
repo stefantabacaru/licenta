@@ -1,4 +1,6 @@
-﻿using licenta.Interfaces.Services;
+﻿using AutoMapper;
+using licenta.DAOModels;
+using licenta.Interfaces.Services;
 using licenta.Models.Company;
 using System;
 using System.Collections.Generic;
@@ -9,14 +11,27 @@ namespace licenta.Services
 {
     public class CompanyService : ICompanyService
     {
-        public Task<int> CreateCompany(CompanyGet company)
+        private Context.ContextDB _context;
+        private readonly IMapper mapper;
+
+        public CompanyService(Context.ContextDB context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<CompanyGet> GetCompany()
+        public async Task<int> CreateCompany(CompanyGet company)
         {
-            throw new NotImplementedException();
+            var companySaveDao = mapper.Map<CompanyDao>(company);
+            _context.Company.Add(companySaveDao);
+            _context.SaveChanges();
+            return companySaveDao.CompanyId;
+        }
+
+        public async Task<CompanyGet> GetCompany()
+        {
+            return mapper.Map<CompanyGet>(_context.Company.FirstOrDefault());
         }
     }
 }

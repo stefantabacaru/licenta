@@ -26,14 +26,14 @@ namespace licenta.Mappers
             CreateMap<EmployeeSave, EmployeeDao>().ReverseMap();
             CreateMap<EmployeeGet, EmployeeGetDto>().ReverseMap();
             CreateMap<EmployeeGet, EmployeeDao>().ReverseMap();
-            CreateMap<EmployeeUpdate, EmployeeSaveDto>().ReverseMap();
+            CreateMap<EmployeeUpdate, EmployeeUpdateDto>().ReverseMap();
             CreateMap<EmployeeUpdate,EmployeeDao>().ReverseMap();
 
             CreateMap<CarsSave, CarsSaveDto>().ReverseMap();
             CreateMap<CarsSave, CarsDao>().ReverseMap();
             CreateMap<CarsGet, CarsGetDto>().ReverseMap();
             CreateMap<CarsGet, CarsDao>().ReverseMap();
-            CreateMap<CarsUpdate, CarsSaveDto>().ReverseMap();
+            CreateMap<CarsUpdate, CarsUpdateDto>().ReverseMap();
             CreateMap<CarsUpdate, CarsDao>().ReverseMap();
 
             CreateMap<CarsRoute, CarsRouteDto>().ReverseMap();

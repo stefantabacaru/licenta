@@ -36,6 +36,11 @@ namespace licenta.Context
                 .WithOne(er => er.Route)
                 .HasForeignKey(er => er.RouteId);
 
+            modelBuilder.Entity<RoutesDao>()
+            .HasMany(r => r.Passengers)
+            .WithOne(er => er.CustomerRoute)
+            .HasForeignKey(er => er.CustomerRouteId);
+
             modelBuilder.Entity<CarsRouteDao>()
                 .HasKey(cr => new { cr.RouteId, cr.CarsId });
 

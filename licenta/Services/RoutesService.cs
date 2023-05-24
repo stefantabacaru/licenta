@@ -1,4 +1,6 @@
-﻿using licenta.Interfaces.Services;
+﻿using AutoMapper;
+using licenta.DAOModels;
+using licenta.Interfaces.Services;
 using licenta.Models.Routes;
 using System;
 using System.Collections.Generic;
@@ -9,29 +11,55 @@ namespace licenta.Services
 {
     public class RoutesService : IRoutesService
     {
-        public Task<int> CreateRoutes(RoutesSave routesSave)
+        private Context.ContextDB _context;
+        private readonly IMapper mapper;
+
+        public RoutesService(Context.ContextDB context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task DeleteRouteById(int id)
+        public async Task<int> CreateRoutes(RoutesSave routesSave)
         {
-            throw new NotImplementedException();
+            var routeSaveDao = mapper.Map<RoutesDao>(routesSave);
+            _context.Routes.Add(routeSaveDao);
+            _context.SaveChanges();
+            return routeSaveDao.RouteId;
         }
 
-        public Task<RoutesGet> GetRouteById(int id)
+        public async Task DeleteRouteById(int id)
         {
-            throw new NotImplementedException();
+            var route = _context.Routes.SingleOrDefault(x => x.RouteId == id);
+            _context.Routes.Remove(route);
+            _context.SaveChanges();
         }
 
-        public Task<List<RoutesGet>> GetRoutes()
+        public async Task<RoutesGet> GetRouteById(int id)
         {
-            throw new NotImplementedException();
+            return mapper.Map<RoutesGet>(_context.Routes.SingleOrDefault(x => x.RouteId == id));
         }
 
-        public Task UpdateRoute(RoutesUpdate routesUpdate, int id)
+        public async Task<List<RoutesGet>> GetRoutes()
         {
-            throw new NotImplementedException();
+            return mapper.Map<List<RoutesGet>>(_context.Routes.ToList());
+        }
+
+        public async Task UpdateRoute(RoutesUpdate routesUpdate, int id)
+        {
+            var route = _context.Routes.SingleOrDefault(x => x.RouteId == id);
+            if (routesUpdate != null)
+            {
+                route.CollectedMoney = routesUpdate.CollectedMoney;
+                route.SpentMoney = routesUpdate.SpentMoney;
+                route.KmNumber = routesUpdate.KmNumber;
+                route.PassengersNumber = routesUpdate.PassengersNumber;
+                route.RouteDetails = routesUpdate.RouteDetails;
+                route.RoutePeriod = routesUpdate.RoutePeriod;
+                
+                _context.Routes.Update(route);
+                _context.SaveChanges();
+            }
         }
     }
 }

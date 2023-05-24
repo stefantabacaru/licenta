@@ -12,7 +12,7 @@ namespace licenta.Interfaces.Services
 
         public Task<CarsGet> GetCarById(int id);
 
-        public Task UpdateCars(CarsUpdate carsSave, int id);
+        public Task UpdateCars(CarsUpdate carsUpdate, int id);
 
         public Task DeleteCarById(int id);
     }
