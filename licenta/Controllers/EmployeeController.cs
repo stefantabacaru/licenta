@@ -6,6 +6,7 @@ using licenta.Models.Employee;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace licenta.Controllers
 {
@@ -23,6 +24,29 @@ namespace licenta.Controllers
 
             this.employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+        [HttpPatch]
+        [Route("editPassword/{newPassword}")]
+        public async Task<IActionResult> editPassword(int id, string oldPassword, string newPassword)
+        {
+            try
+            {
+                await employeeService.editPassword(id, oldPassword, newPassword).ConfigureAwait(false);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Wrong password");
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(string username, string password)
+        {
+
+            var token = await employeeService.Login(username, password).ConfigureAwait(false);
+            return Ok(token);
         }
 
         [HttpGet]
@@ -58,9 +82,8 @@ namespace licenta.Controllers
         {
             try
             {
-
                 var employeeSave = mapper.Map<EmployeeSave>(employeeSaveDto);
-                var employeeId = await employeeService.CreateEmployee(employeeSave).ConfigureAwait(false);
+                var employeeId = await employeeService.CreateEmployee(employeeSave, employeeSaveDto.Password).ConfigureAwait(false);
 
                 return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + employeeId, employeeId);
             }
@@ -86,5 +109,7 @@ namespace licenta.Controllers
             await employeeService.UpdateEmployee(employee, id).ConfigureAwait(false);
             return Ok();
         }
+
+      
     }
 }
