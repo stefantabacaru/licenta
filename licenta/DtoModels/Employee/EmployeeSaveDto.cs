@@ -6,6 +6,16 @@ namespace licenta.DtoModels.Employee
     public class EmployeeSaveDto
     {
         [Required]
+        [MaxLength(50, ErrorMessage = "Name can't be longer then 50 char")]
+        [MinLength(5, ErrorMessage = "Name can't be less then 5 char")]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(50, ErrorMessage = "Password can't be longer then 50 char")]
+        [MinLength(5, ErrorMessage = "Password can't be less then 5 char")]
+        public string Password { get; set; } = string.Empty;
+
+        [Required]
         [MaxLength(50)]
         public string FullName { get; set; }
 

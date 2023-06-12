@@ -4,6 +4,8 @@ namespace licenta.DtoModels.Employee
 {
     public class EmployeeGetDto
     {
+        public string Username { get; set; } = string.Empty;
+
         public int EmployeeId { get; set; }
 
         public string FullName { get; set; }

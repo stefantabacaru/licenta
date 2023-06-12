@@ -13,6 +13,9 @@ using licenta.Interfaces.Repositories;
 using licenta.Mappers;
 using licenta.Repositories;
 using licenta.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace licenta
 {
@@ -58,6 +61,18 @@ namespace licenta
             });
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(o =>
+                    {
+                        o.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
 
             services.AddDbContextPool<ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("ContextConnectionString")));
             services.AddScoped<IEmployeeService, EmployeeService>();

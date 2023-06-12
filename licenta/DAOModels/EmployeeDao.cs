@@ -12,6 +12,17 @@ namespace licenta.DAOModels
         public int EmployeeId { get; set; }
 
         [Required]
+        [MaxLength(50, ErrorMessage = "Name can't be longer then 50 char")]
+        [MinLength(5, ErrorMessage = "Name can't be less then 5 char")]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        public byte[] PasswordHash { get; set; }
+
+        [Required]
+        public byte[] PasswordSalt { get; set; }
+
+        [Required]
         [MaxLength(50)]
         public string FullName { get; set; }
 
