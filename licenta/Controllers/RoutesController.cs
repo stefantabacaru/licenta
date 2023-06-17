@@ -59,6 +59,19 @@ namespace licenta.Controllers
             return NotFound($"cant find route with the id: {id}");
         }
 
+        [HttpGet]
+        [Route("get/{destination}/{departure}/{pasNumbers}/{date}")]
+        public async Task<IActionResult> GetRoutesByDate(string destination, string departure, int pasNumbers, DateTime date)
+        {
+            var route = await routesService.GetRouteById(pasNumbers).ConfigureAwait(false);
+            if (route != null)
+            {
+                return Ok(route);
+            }
+
+            return NotFound($"cant find route with the id: {pasNumbers}");
+        }
+
         [HttpPost]
         [Route("post")]
         public async Task<IActionResult> CreateRoute(RoutesSaveDto routeDto)
@@ -86,5 +99,7 @@ namespace licenta.Controllers
             await routesService.UpdateRoute(route, id).ConfigureAwait(false);
             return Ok();
         }
+
+
     }
 }

@@ -52,8 +52,13 @@ namespace licenta.Services
         public async Task DeleteEmployeeById(int id)
         {
             var employee = _context.Employees.SingleOrDefault(x => x.EmployeeId == id);
-            _context.Employees.Remove(employee);
-            _context.SaveChanges();
+            if (employee != null)
+            {
+                employee.EndDate = DateTime.Now;
+
+                _context.Employees.Update(employee);
+                _context.SaveChanges();
+            }
         }
 
         public async Task<EmployeeGet> GetEmployeeById(int id)
