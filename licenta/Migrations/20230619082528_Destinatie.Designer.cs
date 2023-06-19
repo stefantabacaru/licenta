@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using licenta.Context;
 
 namespace licenta.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    partial class ContextDBModelSnapshot : ModelSnapshot
+    [Migration("20230619082528_Destinatie")]
+    partial class Destinatie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,6 +51,26 @@ namespace licenta.Migrations
                     b.HasKey("CarId");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("licenta.DAOModels.CarsRouteDao", b =>
+                {
+                    b.Property<int>("RouteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("RouteId", "CarsId");
+
+                    b.HasIndex("CarsId");
+
+                    b.ToTable("CarsRoutes");
                 });
 
             modelBuilder.Entity("licenta.DAOModels.CompanyDao", b =>
@@ -155,6 +177,26 @@ namespace licenta.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("licenta.DAOModels.EmployeeRouteDao", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RouteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("EmployeeId", "RouteId");
+
+                    b.HasIndex("RouteId");
+
+                    b.ToTable("EmployeeRoutes");
+                });
+
             modelBuilder.Entity("licenta.DAOModels.RepairsDao", b =>
                 {
                     b.Property<int>("RepairId")
@@ -200,19 +242,16 @@ namespace licenta.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CollectedMoney")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("KmNumber")
                         .HasColumnType("int");
 
                     b.Property<int>("PassengersNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RouteCarId")
                         .HasColumnType("int");
 
                     b.Property<string>("RouteDeparture")
@@ -224,6 +263,9 @@ namespace licenta.Migrations
                     b.Property<string>("RouteDetails")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RouteEmployeeEmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RoutePeriod")
                         .HasColumnType("datetime2");
 
@@ -232,11 +274,26 @@ namespace licenta.Migrations
 
                     b.HasKey("RouteId");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("RouteCarId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("RouteEmployeeEmployeeId");
 
                     b.ToTable("Routes");
+                });
+
+            modelBuilder.Entity("licenta.DAOModels.CarsRouteDao", b =>
+                {
+                    b.HasOne("licenta.DAOModels.CarsDao", "Car")
+                        .WithMany("CarsRoutes")
+                        .HasForeignKey("CarsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("licenta.DAOModels.RoutesDao", "Route")
+                        .WithMany("CarsRoutes")
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("licenta.DAOModels.CustomerDao", b =>
@@ -253,6 +310,21 @@ namespace licenta.Migrations
                     b.HasOne("licenta.DAOModels.CompanyDao", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("licenta.DAOModels.EmployeeRouteDao", b =>
+                {
+                    b.HasOne("licenta.DAOModels.EmployeeDao", "Employee")
+                        .WithMany("EmployeeRoutes")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("licenta.DAOModels.RoutesDao", "Route")
+                        .WithMany("EmployeeRoutes")
+                        .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -275,16 +347,14 @@ namespace licenta.Migrations
             modelBuilder.Entity("licenta.DAOModels.RoutesDao", b =>
                 {
                     b.HasOne("licenta.DAOModels.CarsDao", "RouteCar")
-                        .WithMany("CarsRoutes")
-                        .HasForeignKey("CarId")
+                        .WithMany()
+                        .HasForeignKey("RouteCarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("licenta.DAOModels.EmployeeDao", "RouteEmployee")
-                        .WithMany("EmployeeRoutes")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("RouteEmployeeEmployeeId");
                 });
 #pragma warning restore 612, 618
         }

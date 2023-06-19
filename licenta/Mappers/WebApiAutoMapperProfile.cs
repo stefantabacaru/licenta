@@ -36,9 +36,6 @@ namespace licenta.Mappers
             CreateMap<CarsUpdate, CarsUpdateDto>().ReverseMap();
             CreateMap<CarsUpdate, CarsDao>().ReverseMap();
 
-            CreateMap<CarsRoute, CarsRouteDto>().ReverseMap();
-            CreateMap<CarsRoute, CarsRouteDao>().ReverseMap();
-
             CreateMap<CompanyGet, CompanyGetDto>().ReverseMap();
             CreateMap<CompanyGet, CompanyDao>().ReverseMap();
 
@@ -47,8 +44,6 @@ namespace licenta.Mappers
             CreateMap<CustomerSave, CustomerSaveDto>().ReverseMap();
             CreateMap<CustomerSave, CustomerDao>().ReverseMap();
 
-            CreateMap<EmployeeRoute, EmployeeRouteDto>().ReverseMap();
-            CreateMap<EmployeeRoute, EmployeeRouteDao >().ReverseMap();
 
             CreateMap<RepairsGet, RepairsGetDto>().ReverseMap();
             CreateMap<RepairsGet, RepairsDao>().ReverseMap();

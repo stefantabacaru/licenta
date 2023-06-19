@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using licenta.DtoModels;
 using licenta.DtoModels.Routes;
 using licenta.Interfaces.Services;
 using licenta.Models.Routes;
@@ -13,30 +14,13 @@ namespace licenta.Controllers
     [ApiController]
     public class RoutesController : ControllerBase
     {
-        private readonly IEmployeeRouteService employeeRouteService;
         private readonly IRoutesService routesService;
-        private readonly ICarsRouteService carsRouteService;
         private readonly IMapper mapper;
 
-        public RoutesController(IEmployeeRouteService employeeRouteService, IRoutesService routesService, IMapper mapper, ICarsRouteService carsRouteService)
+        public RoutesController( IRoutesService routesService, IMapper mapper)
         {
-            this.carsRouteService = carsRouteService ?? throw new ArgumentNullException(nameof(carsRouteService));
             this.routesService = routesService ?? throw new ArgumentNullException(nameof(routesService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        }
-
-        [HttpGet]
-        [Route("getByCarId/{id}")]
-        public async Task<IActionResult> GetRoutesByCarId(int carId)
-        {
-            return Ok(await carsRouteService.GetRoutesByCarId(carId).ConfigureAwait(false));
-        }
-
-        [HttpGet]
-        [Route("getByEmployeeId/{id}")]
-        public async Task<IActionResult> GetRoutesByEmployeeId(int employeeId)
-        {
-            return Ok(await employeeRouteService.GetRoutesEmployeeId(employeeId).ConfigureAwait(false));
         }
 
         [HttpGet]
@@ -60,16 +44,19 @@ namespace licenta.Controllers
         }
 
         [HttpGet]
-        [Route("get/{destination}/{departure}/{pasNumbers}/{date}")]
-        public async Task<IActionResult> GetRoutesByDate(string destination, string departure, int pasNumbers, DateTime date)
+        [Route("SearchRoute/{Destination}/{Departure}/{Day}/{PasNumbers}")]
+        public async Task<IActionResult> GetRoutesByDate(string Destination, string Departure, DateTime Day, int PasNumbers)
         {
-            var route = await routesService.GetRouteById(pasNumbers).ConfigureAwait(false);
-            if (route != null)
-            {
-                return Ok(route);
-            }
 
-            return NotFound($"cant find route with the id: {pasNumbers}");
+            var searchRoute = new SearchRoute();
+            searchRoute.PasNumbers = PasNumbers;
+            searchRoute.Destination = Destination;
+            searchRoute.Departure = Departure;
+            searchRoute.Day = Day;
+            var route = await routesService.SearchRoute(searchRoute).ConfigureAwait(false);
+
+            return Ok(route);
+
         }
 
         [HttpPost]

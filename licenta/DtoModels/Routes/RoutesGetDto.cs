@@ -4,6 +4,10 @@ namespace licenta.DtoModels.Routes
 {
     public class RoutesGetDto
     {
+        public int EmployeeId { get; set; }
+
+        public int CarId { get; set; }
+
         public int RoutesId { get; set; }
 
         public string RouteDetails { get; set; }

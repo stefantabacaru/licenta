@@ -12,12 +12,18 @@ namespace licenta.DAOModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RouteId { get; set; }
 
+        public int EmployeeId { get; set; }
+
         public EmployeeDao RouteEmployee { get; set; }
 
         public CarsDao RouteCar { get; set; }
 
         [Required]
-        public int RouteCarId { get; set; }
+        public int CarId { get; set; }
+
+        public string RouteDeparture { get; set; }
+
+        public string RouteDestination { get; set; }
 
         public string RouteDetails { get; set; }
 
@@ -33,9 +39,5 @@ namespace licenta.DAOModels
         public int PassengersNumber { get; set; }
 
         public ICollection<CustomerDao> Passengers { get; set; } = new List<CustomerDao>();
-
-        public ICollection<EmployeeRouteDao> EmployeeRoutes { get; set; } = new List<EmployeeRouteDao>();
-
-        public ICollection<CarsRouteDao> CarsRoutes { get; set; } = new List<CarsRouteDao>();
     }
 }

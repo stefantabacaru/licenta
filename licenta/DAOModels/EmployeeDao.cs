@@ -45,7 +45,7 @@ namespace licenta.DAOModels
         [Required]
         public string Role { get; set; }
 
-        public ICollection<EmployeeRouteDao> EmployeeRoutes { get; set; } = new List<EmployeeRouteDao>();
+        public ICollection<RoutesDao> EmployeeRoutes { get; set; } = new List<RoutesDao>();
 
         public ICollection<RepairsDao> Repairs { get; set; } = new List<RepairsDao>();
 

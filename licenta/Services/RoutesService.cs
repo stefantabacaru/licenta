@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using licenta.DAOModels;
+using licenta.DtoModels;
 using licenta.Interfaces.Services;
 using licenta.Models.Routes;
 using System;
@@ -60,6 +61,13 @@ namespace licenta.Services
                 _context.Routes.Update(route);
                 _context.SaveChanges();
             }
+        }
+
+        public async Task<List<RoutesGet>> SearchRoute(SearchRoute searchRoute)
+        {
+            var list = _context.Routes.Where(x => x.RoutePeriod.DayOfYear == searchRoute.Day.DayOfYear && (x.RouteDestination == searchRoute.Destination) && x.RouteDeparture == searchRoute.Departure && x.RouteCar.SeatsNumber - x.PassengersNumber >= searchRoute.PasNumbers);
+            var listFinal = mapper.Map<List<RoutesGet>>(list);
+            return listFinal;
         }
     }
 }

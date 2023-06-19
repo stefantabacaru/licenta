@@ -13,21 +13,12 @@ namespace licenta.Controllers
     public class CarsController : ControllerBase
     {
         private readonly ICarsService carsService;
-        private readonly ICarsRouteService carsRouteService;
         private readonly IMapper mapper;
 
-        public CarsController(ICarsService carsService, IMapper mapper, ICarsRouteService carsRouteService)
+        public CarsController(ICarsService carsService, IMapper mapper)
         {
-            this.carsRouteService = carsRouteService ?? throw new ArgumentNullException(nameof(carsRouteService));
-            this.carsService = carsService ?? throw new ArgumentNullException(nameof(carsService));
+           this.carsService = carsService ?? throw new ArgumentNullException(nameof(carsService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        }
-
-        [HttpGet]
-        [Route("getByRouteId/{id}")]
-        public async Task<IActionResult> GetCarsByRouteId(int routeId)
-        {
-            return Ok(await carsRouteService.GetCarsByRouteId(routeId).ConfigureAwait(false));
         }
 
         [HttpGet]

@@ -7,13 +7,13 @@ namespace licenta.Models.Routes
     {
         public int RouteId { get; set; }
 
-        public List<int> EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public List<int> CarId { get; set; }
+        public int CarId { get; set; }
 
         public string RouteDetails { get; set; }
 
-        public DateTime ExecutionTime { get; set; }
+        public DateTime RoutePeriod { get; set; }
 
         public string CollectedMoney { get; set; }
 

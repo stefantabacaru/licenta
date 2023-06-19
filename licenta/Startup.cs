@@ -77,8 +77,6 @@ namespace licenta
             services.AddDbContextPool<ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("ContextConnectionString")));
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeRouteService, EmployeeRouteService>();
-            services.AddScoped<ICarsRouteService, CarsRouteService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICarsService, CarsService>();
             services.AddScoped<ICustomerService, CustomerService>();

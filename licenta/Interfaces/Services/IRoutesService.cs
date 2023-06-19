@@ -1,4 +1,5 @@
-﻿using licenta.Models.Routes;
+﻿using licenta.DtoModels;
+using licenta.Models.Routes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,5 +16,8 @@ namespace licenta.Interfaces.Services
         public Task UpdateRoute(RoutesUpdate routesUpdate, int id);
 
         public Task DeleteRouteById(int id);
+
+        public Task<List<RoutesGet>> SearchRoute(SearchRoute searchRoute);
+        
     }
 }

@@ -14,14 +14,12 @@ namespace licenta.Controllers
     [Route("Employee")]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeRouteService employeeRouteService;
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
 
-        public EmployeeController(IEmployeeRouteService employeeRouteService, IEmployeeService employeeService, IMapper mapper)
+        public EmployeeController( IEmployeeService employeeService, IMapper mapper)
         {
-            this.employeeRouteService = employeeRouteService ?? throw new ArgumentNullException(nameof(employeeRouteService));
-
+       
             this.employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -54,13 +52,6 @@ namespace licenta.Controllers
         public async Task<IActionResult> GetEmployees()
         {
             return Ok(await employeeService.GetEmployees().ConfigureAwait(false));
-        }
-
-        [HttpGet]
-        [Route("getByRouteId/{id}")]
-        public async Task<IActionResult> GetemployeeByRouteId(int routeId)
-        {
-            return Ok(await employeeRouteService.GetEmployeesByRouteId(routeId).ConfigureAwait(false));
         }
 
         [HttpGet]
