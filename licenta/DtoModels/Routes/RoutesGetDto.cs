@@ -19,5 +19,9 @@ namespace licenta.DtoModels.Routes
         public string SpentMoney { get; set; }
 
         public int KmNumber { get; set; }
+
+        public string RouteDeparture { get; set; }
+
+        public string RouteDestination { get; set; }
     }
 }
