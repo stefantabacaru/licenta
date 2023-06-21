@@ -10,8 +10,8 @@ using licenta.Context;
 namespace licenta.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    [Migration("20230521135657_update")]
-    partial class update
+    [Migration("20230621120045_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,26 +51,6 @@ namespace licenta.Migrations
                     b.HasKey("CarId");
 
                     b.ToTable("Cars");
-                });
-
-            modelBuilder.Entity("licenta.DAOModels.CarsRouteDao", b =>
-                {
-                    b.Property<int>("RouteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CarsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("RouteId", "CarsId");
-
-                    b.HasIndex("CarsId");
-
-                    b.ToTable("CarsRoutes");
                 });
 
             modelBuilder.Entity("licenta.DAOModels.CompanyDao", b =>
@@ -115,6 +95,8 @@ namespace licenta.Migrations
 
                     b.HasKey("CustomerId");
 
+                    b.HasIndex("CustomerRouteId");
+
                     b.ToTable("Customers");
                 });
 
@@ -140,6 +122,14 @@ namespace licenta.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(15)")
@@ -152,6 +142,11 @@ namespace licenta.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<int>("WorkedDaysPerMonth")
                         .HasColumnType("int");
 
@@ -160,26 +155,6 @@ namespace licenta.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("licenta.DAOModels.EmployeeRouteDao", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RouteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("EmployeeId", "RouteId");
-
-                    b.HasIndex("RouteId");
-
-                    b.ToTable("EmployeeRoutes");
                 });
 
             modelBuilder.Entity("licenta.DAOModels.RepairsDao", b =>
@@ -227,8 +202,14 @@ namespace licenta.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CollectedMoney")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("KmNumber")
                         .HasColumnType("int");
@@ -236,14 +217,14 @@ namespace licenta.Migrations
                     b.Property<int>("PassengersNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("RouteCarId")
-                        .HasColumnType("int");
+                    b.Property<string>("RouteDeparture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RouteDestination")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RouteDetails")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RouteEmployeeEmployeeId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("RoutePeriod")
                         .HasColumnType("datetime2");
@@ -253,25 +234,19 @@ namespace licenta.Migrations
 
                     b.HasKey("RouteId");
 
-                    b.HasIndex("RouteCarId");
+                    b.HasIndex("CarId");
 
-                    b.HasIndex("RouteEmployeeEmployeeId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Routes");
                 });
 
-            modelBuilder.Entity("licenta.DAOModels.CarsRouteDao", b =>
+            modelBuilder.Entity("licenta.DAOModels.CustomerDao", b =>
                 {
-                    b.HasOne("licenta.DAOModels.CarsDao", "Car")
-                        .WithMany("CarsRoutes")
-                        .HasForeignKey("CarsId")
+                    b.HasOne("licenta.DAOModels.RoutesDao", "CustomerRoute")
+                        .WithMany("Passengers")
+                        .HasForeignKey("CustomerRouteId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("licenta.DAOModels.RoutesDao", "Route")
-                        .WithMany("CarsRoutes")
-                        .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -280,21 +255,6 @@ namespace licenta.Migrations
                     b.HasOne("licenta.DAOModels.CompanyDao", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("licenta.DAOModels.EmployeeRouteDao", b =>
-                {
-                    b.HasOne("licenta.DAOModels.EmployeeDao", "Employee")
-                        .WithMany("EmployeeRoutes")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("licenta.DAOModels.RoutesDao", "Route")
-                        .WithMany("EmployeeRoutes")
-                        .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -317,14 +277,16 @@ namespace licenta.Migrations
             modelBuilder.Entity("licenta.DAOModels.RoutesDao", b =>
                 {
                     b.HasOne("licenta.DAOModels.CarsDao", "RouteCar")
-                        .WithMany()
-                        .HasForeignKey("RouteCarId")
+                        .WithMany("CarsRoutes")
+                        .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("licenta.DAOModels.EmployeeDao", "RouteEmployee")
-                        .WithMany()
-                        .HasForeignKey("RouteEmployeeEmployeeId");
+                        .WithMany("EmployeeRoutes")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

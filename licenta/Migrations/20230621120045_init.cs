@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace licenta.Migrations
 {
-    public partial class AddModels : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,30 +40,17 @@ namespace licenta.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(nullable: false),
-                    CustomerRouteId = table.Column<int>(nullable: false),
-                    CustomerPhoneNumber = table.Column<string>(nullable: false),
-                    CustomerEmail = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(maxLength: 50, nullable: false),
+                    PasswordHash = table.Column<byte[]>(nullable: false),
+                    PasswordSalt = table.Column<byte[]>(nullable: false),
                     FullName = table.Column<string>(maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: true),
                     PhoneNumber = table.Column<string>(maxLength: 15, nullable: false),
                     Email = table.Column<string>(nullable: false),
                     WorkedDaysPerMonth = table.Column<int>(nullable: false),
@@ -118,8 +105,10 @@ namespace licenta.Migrations
                 {
                     RouteId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RouteEmployeeEmployeeId = table.Column<int>(nullable: true),
-                    RouteCarId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    CarId = table.Column<int>(nullable: false),
+                    RouteDeparture = table.Column<string>(nullable: true),
+                    RouteDestination = table.Column<string>(nullable: true),
                     RouteDetails = table.Column<string>(nullable: true),
                     RoutePeriod = table.Column<DateTime>(nullable: false),
                     CollectedMoney = table.Column<string>(nullable: true),
@@ -131,79 +120,45 @@ namespace licenta.Migrations
                 {
                     table.PrimaryKey("PK_Routes", x => x.RouteId);
                     table.ForeignKey(
-                        name: "FK_Routes_Cars_RouteCarId",
-                        column: x => x.RouteCarId,
+                        name: "FK_Routes_Cars_CarId",
+                        column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "CarId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Routes_Employees_RouteEmployeeEmployeeId",
-                        column: x => x.RouteEmployeeEmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarsRoutes",
-                columns: table => new
-                {
-                    CarsId = table.Column<int>(nullable: false),
-                    RouteId = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarsRoutes", x => new { x.RouteId, x.CarsId });
-                    table.ForeignKey(
-                        name: "FK_CarsRoutes_Cars_CarsId",
-                        column: x => x.CarsId,
-                        principalTable: "Cars",
-                        principalColumn: "CarId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarsRoutes_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
-                        principalColumn: "RouteId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeRoutes",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(nullable: false),
-                    RouteId = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeRoutes", x => new { x.EmployeeId, x.RouteId });
-                    table.ForeignKey(
-                        name: "FK_EmployeeRoutes_Employees_EmployeeId",
+                        name: "FK_Routes_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerName = table.Column<string>(nullable: false),
+                    CustomerRouteId = table.Column<int>(nullable: false),
+                    CustomerPhoneNumber = table.Column<string>(nullable: false),
+                    CustomerEmail = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
                     table.ForeignKey(
-                        name: "FK_EmployeeRoutes_Routes_RouteId",
-                        column: x => x.RouteId,
+                        name: "FK_Customers_Routes_CustomerRouteId",
+                        column: x => x.CustomerRouteId,
                         principalTable: "Routes",
                         principalColumn: "RouteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarsRoutes_CarsId",
-                table: "CarsRoutes",
-                column: "CarsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeRoutes_RouteId",
-                table: "EmployeeRoutes",
-                column: "RouteId");
+                name: "IX_Customers_CustomerRouteId",
+                table: "Customers",
+                column: "CustomerRouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_CompanyId",
@@ -221,26 +176,20 @@ namespace licenta.Migrations
                 column: "EmployeeResponsibleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_RouteCarId",
+                name: "IX_Routes_CarId",
                 table: "Routes",
-                column: "RouteCarId");
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_RouteEmployeeEmployeeId",
+                name: "IX_Routes_EmployeeId",
                 table: "Routes",
-                column: "RouteEmployeeEmployeeId");
+                column: "EmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarsRoutes");
-
-            migrationBuilder.DropTable(
                 name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "EmployeeRoutes");
 
             migrationBuilder.DropTable(
                 name: "Repairs");

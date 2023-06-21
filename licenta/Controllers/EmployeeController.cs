@@ -51,7 +51,8 @@ namespace licenta.Controllers
         [Route("get")]
         public async Task<IActionResult> GetEmployees()
         {
-            return Ok(await employeeService.GetEmployees().ConfigureAwait(false));
+            var em = await employeeService.GetEmployees().ConfigureAwait(false);
+            return Ok(em);
         }
 
         [HttpGet]

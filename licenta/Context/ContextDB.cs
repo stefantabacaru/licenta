@@ -33,6 +33,11 @@ namespace licenta.Context
             .WithOne(er => er.CustomerRoute)
             .HasForeignKey(er => er.CustomerRouteId);
 
+             modelBuilder.Entity<CarsDao>()
+            .HasMany(r => r.Repairs)
+            .WithOne(er => er.CarToBeRepaired)
+            .HasForeignKey(er => er.CarToBeRepairedId).OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<CarsDao>()
                 .HasMany(c => c.CarsRoutes)
                 .WithOne(cr => cr.RouteCar)
