@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "licenta", "licenta\licenta.csproj", "{CADD10D3-F5F0-4947-9259-A5167BD7BBE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "licenta", "licenta\licenta.csproj", "{CADD10D3-F5F0-4947-9259-A5167BD7BBE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerTest", "ControllerTest\ControllerTest.csproj", "{6DF00A1E-46F4-4C79-90E6-104C314291CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CADD10D3-F5F0-4947-9259-A5167BD7BBE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CADD10D3-F5F0-4947-9259-A5167BD7BBE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CADD10D3-F5F0-4947-9259-A5167BD7BBE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF00A1E-46F4-4C79-90E6-104C314291CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF00A1E-46F4-4C79-90E6-104C314291CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF00A1E-46F4-4C79-90E6-104C314291CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF00A1E-46F4-4C79-90E6-104C314291CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

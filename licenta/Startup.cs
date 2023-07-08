@@ -100,6 +100,8 @@ namespace licenta
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -110,7 +112,7 @@ namespace licenta
 
             app.UseSwaggerUI(o =>
             {
-                o.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger HeRo");
+                o.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger STEPTRANS");
             });
         }
     }

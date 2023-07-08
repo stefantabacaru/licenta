@@ -21,5 +21,6 @@ namespace licenta.DtoModels.Employee
         public int WorkingHours { get; set; }
 
         public string Role { get; set; }
+        public object Password { get; internal set; }
     }
 }

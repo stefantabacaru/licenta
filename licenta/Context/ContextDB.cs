@@ -50,5 +50,6 @@ namespace licenta.Context
         public DbSet<CustomerDao> Customers { get; set; }
         public DbSet<RepairsDao> Repairs { get; set; }
         public DbSet<RoutesDao> Routes { get; set; }
+     
     }
 }
